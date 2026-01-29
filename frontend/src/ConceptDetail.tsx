@@ -60,7 +60,7 @@ function ConceptDetail() {
     setLoading(true);
     setError(null);
     
-    fetch(apiUrl(`/api/concepts/${id}`))
+    fetch(apiUrl(`/api/concepts/${id}`), { credentials: 'include' })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTPエラー: ${res.status}`);
@@ -84,6 +84,7 @@ function ConceptDetail() {
     await fetch(apiUrl(`/api/concepts/${concept.id}`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ ...concept, name: editingName, notes: editingNotes })
     });
 
@@ -111,6 +112,7 @@ function ConceptDetail() {
     const response = await fetch(apiUrl(`/api/concepts/${concept.id}/words`), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(newWord)
     });
     
@@ -126,6 +128,7 @@ function ConceptDetail() {
     await fetch(apiUrl(`/api/concepts/${concept.id}/words/${editingWord.id}`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(editingWord)
     });
     
@@ -155,7 +158,8 @@ function ConceptDetail() {
     // 2. Send delete request in background
     try {
       const response = await fetch(apiUrl(`/api/concepts/${concept.id}/words/${wordId}`), {
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: 'include'
       });
 
       if (!response.ok) {

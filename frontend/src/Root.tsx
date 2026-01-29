@@ -13,7 +13,7 @@ import {
   DialogActions,
   TextField
 } from '@mui/material';
-import { apiUrl } from './api';
+import { apiUrl, apiFetch } from './api';
 
 // Outlet context type for passing data to child routes
 export type RootOutletContext = {
@@ -30,6 +30,13 @@ function Root() {
 
   // Error notification state
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Session initialization
+  useEffect(() => {
+    apiFetch('/api/session/init', { method: 'POST' }).catch(err =>
+      console.error('セッション初期化エラー', err)
+    );
+  }, []);
 
   // Concept作成 (Optimistic Update)
   const handleCreate = async () => {
@@ -59,6 +66,7 @@ function Root() {
       const response = await fetch(apiUrl('/api/concepts'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ name: trimmedName, notes: trimmedNotes }),
       });
 
@@ -97,7 +105,8 @@ function Root() {
     // 2. Send delete request in background
     try {
       const response = await fetch(apiUrl(`/api/concepts/${conceptId}`), {
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -120,7 +129,7 @@ function Root() {
       ? `/api/concepts/search?keyword=${encodeURIComponent(searchKeyword)}`
       : `/api/concepts`;
 
-    fetch(apiUrl(url))
+    fetch(apiUrl(url), { credentials: 'include' })
       .then(res => res.json())
       .then((data: Concept[]) => {
         setSearchResults(data);

@@ -20,10 +20,8 @@ public class SearchService {
         this.wordRepository=wordRepository;
     }
 
-    public  List<Concept>search(String keyword){
-        //if(keyword==null || keyword.trim().isEmpty()){
-            //return  conceptRepository.findAll();
-        return  conceptRepository.searchByKeyword(keyword);
+    public  List<Concept>search(String userId, String keyword){
+        return  conceptRepository.searchByKeyword(userId, keyword);
         }
 
 
