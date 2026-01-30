@@ -19,7 +19,7 @@ function LandingPage() {
               ConceptLink
             </Typography>
             <Button
-              href="https://github.com/noifex/multilang-memo"
+              href="https://github.com/noifex/ConceptLink"
               target="_blank"
               sx={{ color: '#000' }}
               startIcon={<GitHubIcon />}
