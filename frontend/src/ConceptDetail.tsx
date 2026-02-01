@@ -373,16 +373,9 @@ function ConceptDetail() {
                           <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5, fontWeight: 'bold' }}>
                             Nuance:
                           </Typography>
-                          <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{
-                              wordBreak: 'break-word',
-                              overflowWrap: 'break-word'
-                            }}
-                          >
-                            {word.nuance}
-                          </Typography>
+                          <Box sx={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                            <MarkdownRenderer content={word.nuance} />
+                          </Box>
                         </Box>
                       )}
                     </Box>
@@ -460,12 +453,21 @@ function ConceptDetail() {
             fullWidth
             multiline
             rows={3}
-            label="Nuance（任意）"
+            label="Nuance（Markdown対応・任意）"
             value={newWord.nuance}
             onChange={(e) => setNewWord({ ...newWord, nuance: e.target.value })}
             sx={{ mt: 2 }}
             placeholder="ニュアンス、使用例など"
+            helperText="Markdown記法: # 見出し, **太字**, *斜体*, - リスト"
           />
+          {newWord.nuance && (
+            <Box sx={{ mt: 2, p: 2, border: '1px solid #e0e0e0', borderRadius: 1, backgroundColor: '#fafafa' }}>
+              <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+                プレビュー:
+              </Typography>
+              <MarkdownRenderer content={newWord.nuance} />
+            </Box>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsAddWordFormOpen(false)}>キャンセル</Button>
@@ -503,11 +505,20 @@ function ConceptDetail() {
               fullWidth
               multiline
               rows={3}
-              label="Nuance（任意）"
+              label="Nuance（Markdown対応・任意）"
               value={editingWord.nuance || ''}
               onChange={(e) => setEditingWord({ ...editingWord, nuance: e.target.value })}
               sx={{ mt: 2 }}
+              helperText="Markdown記法: # 見出し, **太字**, *斜体*, - リスト"
             />
+            {editingWord.nuance && (
+              <Box sx={{ mt: 2, p: 2, border: '1px solid #e0e0e0', borderRadius: 1, backgroundColor: '#fafafa' }}>
+                <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+                  プレビュー:
+                </Typography>
+                <MarkdownRenderer content={editingWord.nuance} />
+              </Box>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setIsEditWordFormOpen(false)}>キャンセル</Button>

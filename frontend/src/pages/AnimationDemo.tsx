@@ -640,7 +640,7 @@ function Step4RealExample() {
 
     try {
       const response = await fetch(
-        apiUrl(`/api/concepts/search?keyword=${encodeURIComponent(keyword)}`)
+          apiUrl(`/api/public/demo-concepts/search?keyword=${encodeURIComponent(keyword)}`)
       );
 
       if (!response.ok) {
@@ -905,7 +905,7 @@ function Step4RealExample() {
                       ✨ どの言語で検索しても、同じ概念にたどり着く！
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                      Markdown対応でコード例も記録 / 73%高速化（N+1問題解決）
+                      
                     </Typography>
                   </>
                 )}
